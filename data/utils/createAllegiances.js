@@ -6,9 +6,16 @@ function createAllegiances(tbl) {
   tbl
     .integer('league_id')
     .unsigned()
-    .notNullable()
     .references('id')
     .inTable('leagues')
+    .onDelete('CASCADE')
+    .onUpdate('CASCADE')
+  tbl
+    .integer('sport_id')
+    .notNullable()
+    .unsigned()
+    .references('id')
+    .inTable('sports')
     .onDelete('CASCADE')
     .onUpdate('CASCADE')
   tbl.timestamps(true, true)
