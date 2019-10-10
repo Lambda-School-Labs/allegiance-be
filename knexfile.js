@@ -3,7 +3,6 @@ require('dotenv').config()
 
 module.exports = {
   development: {
-    debug: true,
     client: 'pg',
     connection: process.env.DB_LOCAL_URL || {
       database: process.env.DB_LOCAL,

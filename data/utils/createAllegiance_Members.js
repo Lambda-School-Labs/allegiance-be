@@ -19,6 +19,6 @@ function createAllegiance_Members(tbl) {
     .onDelete('CASCADE')
     .onUpdate('CASCADE')
 
-  tbl.unique(['user_id', 'allegiance_id'])
+  // tbl.unique(['user_id', 'allegiance_id'])
 }
 module.exports = createAllegiance_Members

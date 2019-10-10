@@ -6,8 +6,8 @@ exports.up = function(knex) {
     users
       .string('email', 255)
       .notNullable()
-      .unique()
       .comment('This is the email field')
+
     users.string('location').comment('This is the location field')
     users.string('image', 999)
     users.string('banner_image')

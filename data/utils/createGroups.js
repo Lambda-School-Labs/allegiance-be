@@ -1,10 +1,10 @@
 function createGroups(tbl) {
   tbl.increments()
   tbl.string('name', 50).notNullable()
-  tbl.string('privacy_status').notNullable()
-  tbl.string('state').notNullable()
-  tbl.string('country').notNullable()
-  tbl.string('city').notNullable()
+  tbl.string('type').notNullable()
+  tbl.string('state')
+  tbl.string('country')
+  tbl.string('city')
   tbl.string('zip')
   tbl.string('image')
   tbl.string('acronym', 4)
@@ -12,7 +12,6 @@ function createGroups(tbl) {
   tbl
     .integer('allegiance_id')
     .unsigned()
-    .notNullable()
     .references('id')
     .inTable('allegiances')
     .onDelete('CASCADE')

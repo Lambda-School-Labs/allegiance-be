@@ -4,11 +4,12 @@ function createLeagues(tbl) {
   tbl
     .integer('sport_id')
     .unsigned()
-    .notNullable()
+    .nullable()
     .references('id')
     .inTable('sports')
     .onDelete('CASCADE')
     .onUpdate('CASCADE')
+
   tbl.string('acronym')
   tbl.timestamps(true, true)
 }
