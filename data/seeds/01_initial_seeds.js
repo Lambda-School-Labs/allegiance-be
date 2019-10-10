@@ -8,5 +8,6 @@ exports.seed = async function(knex) {
     await knex('groups').insert(f.createGroupsSeeds),
     await knex('group_members').insert(f.createGroupMembersSeeds),
     await knex('posts').insert(f.createPostsSeeds),
+    await knex('allegiance_members').insert(f.createAllegianceMembersSeeds),
   ])
 }
