@@ -310,10 +310,5 @@ const groups = [
     description: 'Buccaneers Fans',
   },
 ]
-// let i = 1
-// for (const group of groups) {
-//   group['id'] = i
-//   i++
-// }
 
 module.exports = groups

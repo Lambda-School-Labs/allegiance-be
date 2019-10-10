@@ -25,10 +25,5 @@ const allegianceMembers = [
   { user_id: 1, allegiance_id: 6 },
   { user_id: 3, allegiance_id: 9 },
 ]
-// let i = 1
-// for (const member of allegianceMembers) {
-//   member['id'] = i
-//   i++
-// }
 
 module.exports = allegianceMembers

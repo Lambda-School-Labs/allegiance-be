@@ -859,10 +859,4 @@ const allegiances = [
   },
 ]
 
-// let i = 1
-// for (const allegiance of allegiances) {
-//   allegiance['id'] = i
-//   i++
-// }
-
 module.exports = allegiances
