@@ -6,6 +6,16 @@ const UsersAllegiances = require("../models/users_allegiances");
 
 const router = express.Router();
 
+router.get('/verify').get(async (req, res) => {
+  // Check if current user is a member of any groups
+  const userGroups = await GroupsUsers.find({ user_id: currentUser.id });
+  if (userGroups) {
+    return true
+  } else {
+    return false
+  }
+});
+
 router.route("/").post(async (req, res) => {
   if (!req.body.email) {
     return res.status(400).json({
