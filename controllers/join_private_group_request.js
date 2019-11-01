@@ -6,13 +6,32 @@ const { groupSchema } = require("../schemas");
 const Users = require('../models/users')
 
 router
+.get('/verify/:id').get(async (req, res) => {
+  const id = req.params.id
+  console.log('this got hit')
+    // Check if email of user exists to decide whether to create new user
+    const currentUser = await Users.find({ id: id }).first();
+    
+    if (currentUser) {
+  // Check if current user is a member of any groups
+  // change to this group
+  const userGroups = await GroupsUsers.find({ user_id: currentUser.id });
+  if (userGroups) {
+    return true
+  } else {
+    return false
+  }
+} else {
+  return false
+}
+});
+
+router
 .route('/group/:group_id/')
 .post(async (req, res) => {
 try {
     const { group_id }  = req.params;
     const { userId } = req.body
-    console.log('group_id', group_id)
-    console.log('userId', userId)
     const users = await PrivateInvitees.privateInvitation(userId, group_id);
     res.status(200).json(users);
 } catch (err) {

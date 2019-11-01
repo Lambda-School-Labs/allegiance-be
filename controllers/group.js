@@ -40,7 +40,6 @@ router
 
 // Endpoint to retrieve groups for search
 router.route("/search").post(async (req, res) => {
-  console.log("search got hit");
   // Branch for location searches
   if (req.body.column === "location") {
     // Use zipcodes package to search for zip codes
@@ -85,9 +84,7 @@ router.route("/search").post(async (req, res) => {
   }
   // Branch for non location searches
   else {
-    console.log("else block");
     const groups = await Groups.search(req.body);
-    console.log("did i get groups,", groups);
     // Obtain list of group ids
     const group_id = groups.map(group => group.id);
     // Obtain members of all groups retrieved
@@ -99,7 +96,6 @@ router.route("/search").post(async (req, res) => {
         members: members.filter(member => member.group_id === group.id)
       };
     });
-    console.log(groups);
     res.status(200).json({
       groupByFilter,
       members
