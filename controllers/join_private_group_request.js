@@ -4,11 +4,14 @@ const PrivateInvitees = require('../models/private_group_request')
 const validation = require('../middleware/dataValidation')
 const { groupSchema } = require("../schemas");
 const Users = require('../models/users')
+const GroupsUsers = require("../models/groups_users");
 
 router
-.get('/verify/:id').get(async (req, res) => {
-  const id = req.params.id
-  console.log('this got hit')
+.route('/verify/').get(async (req, res) => {
+  const { id } = req.params
+  console.log('id :)', id)
+const { body } = req.body
+  console.log('body :)', body)
     // Check if email of user exists to decide whether to create new user
     const currentUser = await Users.find({ id: id }).first();
     
