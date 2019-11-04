@@ -6,7 +6,7 @@ const Groups = require("../models/groups.js");
 const GroupsAllegiances = require("../models/groups_allegiances.js");
 const GroupsUsers = require("../models/groups_users");
 const Invitees = require("../models/group_invitees");
-const Requests = require("../models/private_group_request")
+const Requests = require("../models/private_group_request");
 
 const router = express.Router();
 
@@ -41,6 +41,8 @@ router
 // Endpoint to retrieve groups for search
 router.route("/search").post(async (req, res) => {
   console.log("search got hit");
+  console.log("BODY:", req.body);
+
   // Branch for location searches
   if (req.body.column === "location") {
     // Use zipcodes package to search for zip codes
@@ -55,6 +57,7 @@ router.route("/search").post(async (req, res) => {
 
       // Gather group ids to prepare for member retrieval
       const groups = await Groups.search(req.body);
+
       const group_id = groups.map(group => group.id);
 
       // Retrieve members from groups_users table
@@ -85,9 +88,10 @@ router.route("/search").post(async (req, res) => {
   }
   // Branch for non location searches
   else {
-    console.log("else block");
     const groups = await Groups.search(req.body);
-    console.log("did i get groups,", groups);
+
+    const group_privacy = groups.map(group => group.privacy_setting);
+
     // Obtain list of group ids
     const group_id = groups.map(group => group.id);
     // Obtain members of all groups retrieved
@@ -96,10 +100,11 @@ router.route("/search").post(async (req, res) => {
     const groupByFilter = groups.map(group => {
       return {
         ...group,
+
         members: members.filter(member => member.group_id === group.id)
       };
     });
-    console.log(groups);
+    // console.log(groups);
     res.status(200).json({
       groupByFilter,
       members
@@ -185,25 +190,20 @@ router
         email,
         location: user_location,
         status: user_type
-      }
+      };
     });
 
-    const requestCall = await Requests.findByGroupId(id)
+    const requestCall = await Requests.findByGroupId(id);
 
     const reqs = requestCall.map(req => {
-      const {
-        id,
-        first_name,
-        last_name,
-        image
-      } = req;
+      const { id, first_name, last_name, image } = req;
       return {
         id,
         first_name,
         last_name,
         image
-      }
-    })
+      };
+    });
 
     if (group && group.id) {
       // Return group, allegiance, and member information
@@ -239,7 +239,10 @@ router
 
       if (user) {
         const user_id = user.id;
-        const groupMember = await GroupsUsers.find({ user_id, group_id: id}).first();
+        const groupMember = await GroupsUsers.find({
+          user_id,
+          group_id: id
+        }).first();
 
         if (!groupMember) {
           const invitation = await Invitees.findByUserAndGroup(user_id, id);
@@ -252,7 +255,9 @@ router
             );
             res.status(201).json(invitedUser);
           } else {
-            res.status(400).json({ message: 'User already has a pending invite' });
+            res
+              .status(400)
+              .json({ message: "User already has a pending invite" });
           }
         } else {
           res.status(400).json({ message: "User is already a member" });

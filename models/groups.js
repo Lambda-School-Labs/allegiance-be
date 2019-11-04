@@ -39,24 +39,20 @@ const hidden = "hidden";
 // added secondary "find" function that performs specific filter using ilike to fuzzy search groups
 async function search(filters) {
   // Checks for array being passed to filter.row and checks over it if so
-  console.log("what is filters", filters);
+
   if (Array.isArray(filters.row)) {
     return db("groups")
       .select("*")
       .whereIn(filters.column, filters.row);
   } else {
     if (findColumns.includes(filters.column)) {
-      // console.log("if");
       const results = await db("groups").where(filters.column, filters.row);
-      // console.log("awaited results \n", results);
     } else {
-      // console.log("else");
-      const results = await db("groups").where(
-        `${filters.column}`,
-        "ilike",
-        `%${filters.row}%`
-      );
-      // console.log("awaited results \n", results);
+      const results = await db("groups")
+        .where(`${filters.column}`, "ilike", `%${filters.row}%`)
+        .whereNot({
+          privacy_setting: "hidden"
+        });
       return results;
     }
   }
