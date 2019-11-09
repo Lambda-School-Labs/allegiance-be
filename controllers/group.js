@@ -99,7 +99,6 @@ router.route("/search").post(async (req, res) => {
         members: members.filter(member => member.group_id === group.id)
       };
     });
-    console.log(groups);
     res.status(200).json({
       groupByFilter,
       members
