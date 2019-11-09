@@ -36,6 +36,11 @@ io.on("connection", socket => {
     });
   });
 
+  socket.on("reply", data => {
+    console.log("reply::::::::::::::::::::::::", data);
+    // data.userIds.forEach
+  });
+
   socket.on("disconnect", () => {
     console.log("disconnected id: " + socket.id);
   });

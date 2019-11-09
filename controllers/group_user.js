@@ -78,7 +78,6 @@ router.route("/search").post(async (req, res) => {
       });
       // if relation does not already exist, check for user and group existence
     } else {
-      console.log("userid", user_id, "groupid", group_id);
       const user = await Users.find({
         id: user_id,
       }).first();
