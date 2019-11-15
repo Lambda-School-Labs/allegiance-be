@@ -10,8 +10,6 @@ const createFakeUser = () => ({
   image: faker.image.avatar(),
 });
 exports.seed = async function(knex, Promise) {
-  // Deletes ALL existing entries
-  // Inserts seed entries
   const fakeUsers = [];
   const count = 50;
   for (let i = 1; i < count; i++) {
@@ -21,5 +19,5 @@ exports.seed = async function(knex, Promise) {
     email: "labsallegiance@gmail.com",
     username: "test",
   });
-  await knex("users").insert(fakeUsers);
+  return knex("users").insert(fakeUsers);
 };
