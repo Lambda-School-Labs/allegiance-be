@@ -109,14 +109,5 @@ router
       res.status(500).json({ err });
     }
   });
-// .delete(async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const deleteNotification = Notifications.remove(id);
-//     res.status(200).json(deleteNotification);
-//   } catch (err) {
-//     res.status(500).json({ err });
-//   }
-// });
 
 module.exports = router;
