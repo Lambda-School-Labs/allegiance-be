@@ -77,6 +77,7 @@ router
     if (user && group) {
       const newPost = { group_id, user_id, post_content };
       const postResult = await Posts.add(newPost);
+      postResult["group_name"] = group.group_name;
       postResult["likes"] = [];
       postResult["replies"] = [];
       res.status(201).json({
