@@ -19,6 +19,7 @@ exports.up = function(knex) {
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
     posts.varchar("post_content").notNullable();
+    posts.string("img");
     posts.timestamps(true, true);
   });
 };

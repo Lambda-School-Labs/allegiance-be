@@ -65,7 +65,7 @@ router
   })
   .post(validation(postSchema), async (req, res) => {
     const { group_id } = req.params;
-    const { user_id, post_content } = req.body;
+    const { user_id, post_content, img } = req.body;
     // Check that user provided exists
     const user = await Users.find({
       id: user_id,
@@ -75,7 +75,7 @@ router
       id: group_id,
     }).first();
     if (user && group) {
-      const newPost = { group_id, user_id, post_content };
+      const newPost = { group_id, user_id, post_content, img };
       const postResult = await Posts.add(newPost);
       postResult["likes"] = [];
       postResult["replies"] = [];
