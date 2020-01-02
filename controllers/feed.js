@@ -85,7 +85,6 @@ router.route("/").post(async (req, res) => {
 		// Return combined array
 		Promise.all(mappedPosts).then(posts => {
 			posts.sort((a, b) => b.created_at - a.created_at);
-			console.log('posts', posts);
 			res.status(200).json(posts);
 		}).catch(err => {
 			res.status(500).json({ err: 'Unknown server error.' });

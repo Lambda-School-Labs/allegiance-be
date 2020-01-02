@@ -3,8 +3,6 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const compression = require("compression");
-// cons = require("../middleware/auth-middleware");
-
 // Routers
 const usersRouter = require("../controllers/user");
 const authRouter = require("../controllers/auth");
@@ -21,16 +19,10 @@ const feedRouter = require("../controllers/feed");
 const notificationsRouter = require("../controllers/notification");
 const privateGroupInvitesRouter = require("../controllers/join_private_group_request");
 
-// Internal middleware
-const errorHandler = require("../middleware/errorHandling");
-
-
-
-
-module.exports = server => {
+module.exports = (server) => {
 // Library Middleware
 server.use(cors(), helmet(), express.json(), compression());
-// API endpoints
+    // API endpoints
 server.use("/api/users", usersRouter);
 server.use("/api/auth", authRouter);
 server.use("/api/allegiances", allegiancesRouter);
@@ -45,6 +37,5 @@ server.use("/api/replies_likes", repliesLikesRouter);
 server.use("/api/feed", feedRouter);
 server.use("/api/notifications", notificationsRouter);
 server.use("/api/private", privateGroupInvitesRouter);
-// async error handling. must come AFTER API routes or will raise TypeError
-server.use(errorHandler);
-};
+return server
+}

@@ -1,6 +1,6 @@
 const clients = {};
 
-module.exports = (socket, namespace, io) => {
+module.exports = (socket, io) => {
   console.log("New connection id: " + socket.id);
 
   socket.on("join", data => {
@@ -39,7 +39,6 @@ module.exports = (socket, namespace, io) => {
   });
 
   socket.on("groupPost", data => {
-    console.log("pageData", data);
     socket.broadcast.to(data.room).emit("groupPost", data);
   });
 
